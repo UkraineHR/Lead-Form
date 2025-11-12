@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анкета кандидата</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 20%, #a78bfa 50%, #c084fc 70%, #e879f9 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Decorative elements - flying chaotically */
+        .flower-decoration {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            opacity: 0.6;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .flower-decoration img {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            transition: all 0.3s ease;
+        }
+
+        /* Hover effects - different for each emoji */
+        .flower-decoration:hover {
+            opacity: 1;
+            z-index: 20;
+        }
+
+        /* Type 1: Scale and rotate */
+        .flower1:hover, .flower5:hover, .flower9:hover {
+            transform: scale(1.5) rotate(360deg);
+        }
+
+        /* Type 2: Bounce and glow */
+        .flower2:hover, .flower6:hover, .flower10:hover {
+            animation: bounceHover 0.5s ease infinite;
+            filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.8));
+        }
+
+        @keyframes bounceHover {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Type 3: Spin */
+        .flower3:hover, .flower7:hover, .flower11:hover {
+            animation: spinHover 1s linear infinite;
+        }
+
+        @keyframes spinHover {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Type 4: Pulse and shimmer */
+        .flower4:hover, .flower8:hover, .flower12:hover {
+            animation: pulseShimmer 0.8s ease-in-out infinite;
+        }
+
+        @keyframes pulseShimmer {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: scale(1.3);
+                opacity: 1;
+                filter: brightness(1.5);
+            }
+        }
+
+        /* Type 5: Shake */
+        .flower13:hover, .flower14:hover {
+            animation: shakeHover 0.5s ease infinite;
+        }
+
+        @keyframes shakeHover {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px) rotate(-5deg); }
+            75% { transform: translateX(10px) rotate(5deg); }
+        }
+
+        /* Chaotic flying animations - spread across screen */
+        .flower1 { 
+            top: 15%; 
+            left: 8%; 
+            animation: float1 8s ease-in-out infinite;
+            width: 55px; 
+            height: 55px; 
+        }
+        
+        .flower2 { 
+            top: 25%; 
+            left: 85%; 
+            animation: float2 10s ease-in-out infinite;
+            width: 48px; 
+            height: 48px; 
+        }
+        
+        .flower3 { 
+            top: 45%; 
+            left: 5%; 
+            animation: float3 12s ease-in-out infinite;
+            width: 52px; 
+            height: 52px; 
+        }
+        
+        .flower4 { 
+            top: 10%; 
+            right: 15%; 
+            animation: float4 9s ease-in-out infinite;
+            width: 58px; 
+            height: 58px; 
+        }
+        
+        .flower5 { 
+            top: 60%; 
+            right: 10%; 
+            animation: float5 11s ease-in-out infinite;
+            width: 46px; 
+            height: 46px; 
+        }
+        
+        .flower6 { 
+            top: 30%; 
+            right: 25%; 
+            animation: float6 13s ease-in-out infinite;
+            width: 50px; 
+            height: 50px; 
+        }
+        
+        .flower7 { 
+            bottom: 15%; 
+            left: 12%; 
+            animation: float7 10s ease-in-out infinite;
+            width: 54px; 
+            height: 54px; 
+        }
+        
+        .flower8 { 
+            bottom: 35%; 
+            left: 18%; 
+            animation: float8 14s ease-in-out infinite;
+            width: 49px; 
+            height: 49px; 
+        }
+        
+        .flower9 { 
+            bottom: 20%; 
+            left: 75%; 
+            animation: float9 9s ease-in-out infinite;
+            width: 51px; 
+            height: 51px; 
+        }
+        
+        .flower10 { 
+            bottom: 10%; 
+            right: 20%; 
+            animation: float10 12s ease-in-out infinite;
+            width: 56px; 
+            height: 56px; 
+        }
+        
+        .flower11 { 
+            bottom: 40%; 
+            right: 8%; 
+            animation: float11 11s ease-in-out infinite;
+            width: 47px; 
+            height: 47px; 
+        }
+        
+        .flower12 { 
+            top: 70%; 
+            left: 40%; 
+            animation: float12 13s ease-in-out infinite;
+            width: 53px; 
+            height: 53px; 
+        }
+
+        .flower13 { 
+            top: 50%; 
+            left: 25%; 
+            animation: float13 10s ease-in-out infinite;
+            width: 45px; 
+            height: 45px; 
+        }
+        
+        .flower14 { 
+            top: 80%; 
+            right: 35%; 
+            animation: float14 14s ease-in-out infinite;
+            width: 48px; 
+            height: 48px; 
+        }
+
+        /* Individual chaotic flight paths */
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(30px, -25px) rotate(10deg); }
+            50% { transform: translate(-20px, 15px) rotate(-5deg); }
+            75% { transform: translate(15px, -10px) rotate(8deg); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-35px, 20px) rotate(-12deg); }
+            66% { transform: translate(25px, -30px) rotate(15deg); }
+        }
+
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            20% { transform: translate(20px, 25px) rotate(5deg); }
+            40% { transform: translate(-25px, -15px) rotate(-10deg); }
+            60% { transform: translate(30px, 10px) rotate(12deg); }
+            80% { transform: translate(-15px, 20px) rotate(-7deg); }
+        }
+
+        @keyframes float4 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-25px, 30px) rotate(8deg); }
+            50% { transform: translate(20px, -20px) rotate(-6deg); }
+            75% { transform: translate(-30px, 15px) rotate(10deg); }
+        }
+
+        @keyframes float5 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            30% { transform: translate(35px, -20px) rotate(-15deg); }
+            70% { transform: translate(-30px, 25px) rotate(12deg); }
+        }
+
+        @keyframes float6 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-20px, -25px) rotate(7deg); }
+            50% { transform: translate(25px, 20px) rotate(-9deg); }
+            75% { transform: translate(-15px, 15px) rotate(6deg); }
+        }
+
+        @keyframes float7 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, 20px) rotate(-11deg); }
+            66% { transform: translate(-25px, -25px) rotate(14deg); }
+        }
+
+        @keyframes float8 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            20% { transform: translate(-30px, 15px) rotate(9deg); }
+            40% { transform: translate(20px, -20px) rotate(-8deg); }
+            60% { transform: translate(-15px, 25px) rotate(11deg); }
+            80% { transform: translate(25px, -15px) rotate(-6deg); }
+        }
+
+        @keyframes float9 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-35px, -20px) rotate(13deg); }
+            50% { transform: translate(30px, 25px) rotate(-10deg); }
+            75% { transform: translate(-20px, 10px) rotate(7deg); }
+        }
+
+        @keyframes float10 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            30% { transform: translate(25px, 30px) rotate(-14deg); }
+            70% { transform: translate(-30px, -20px) rotate(12deg); }
+        }
+
+        @keyframes float11 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, -30px) rotate(8deg); }
+            50% { transform: translate(-25px, 20px) rotate(-11deg); }
+            75% { transform: translate(30px, -15px) rotate(9deg); }
+        }
+
+        @keyframes float12 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-30px, 25px) rotate(-9deg); }
+            66% { transform: translate(35px, -20px) rotate(13deg); }
+        }
+
+        @keyframes float13 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(25px, 20px) rotate(-7deg); }
+            50% { transform: translate(-20px, -25px) rotate(10deg); }
+            75% { transform: translate(15px, 30px) rotate(-12deg); }
+        }
+
+        @keyframes float14 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            20% { transform: translate(-25px, -30px) rotate(11deg); }
+            40% { transform: translate(30px, 15px) rotate(-8deg); }
+            60% { transform: translate(-20px, 20px) rotate(6deg); }
+            80% { transform: translate(20px, -25px) rotate(-13deg); }
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            z-index: 10;
+        }
+
+        .glow {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #a78bfa, #c084fc);
+            border-radius: 30px;
+            filter: blur(30px);
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .form-wrapper {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 4px solid #c084fc;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .title-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .title-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        h1 {
+            font-size: 36px;
+            background: linear-gradient(135deg, #4facfe, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        label img {
+            width: 24px;
+            height: 24px;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px 18px;
+            border: 2px solid #c084fc;
+            border-radius: 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+            background: white;
+        }
+
+        input:focus {
+            border-color: #a78bfa;
+            box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.2);
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #4facfe, #00f2fe, #a78bfa);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .success-flowers {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .success-flowers img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #e0e7ff, #ddd6fe);
+            border: 3px solid #a78bfa;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+
+        .success-box p {
+            font-size: 20px;
+            color: #333;
+            font-weight: 600;
+            line-height: 1.8;
+        }
+
+        .success-footer {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .success-footer img {
+            width: 45px;
+            height: 45px;
+        }
+
+        .form-content.hidden {
+            display: none;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .form-wrapper {
+                padding: 30px 25px;
+                border-radius: 25px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .title-icon {
+                width: 32px;
+                height: 32px;
+            }
+
+            label {
+                font-size: 16px;
+            }
+
+            label img {
+                width: 20px;
+                height: 20px;
+            }
+
+            input {
+                padding: 14px 16px;
+                font-size: 15px;
+            }
+
+            .submit-btn {
+                padding: 16px;
+                font-size: 18px;
+            }
+
+            .form-group {
+                margin-bottom: 25px;
+            }
+
+            .success-box p {
+                font-size: 18px;
+            }
+
+            .flower-decoration {
+                width: 35px;
+                height: 35px;
+            }
+
+            .flower1, .flower4, .flower7, .flower10 { 
+                width: 40px; 
+                height: 40px; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-wrapper {
+                padding: 25px 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .title-icon {
+                width: 28px;
+                height: 28px;
+            }
+
+            .success-box p {
+                font-size: 16px;
+                padding: 5px;
+            }
+
+            /* Keep flowers on mobile but make them smaller and less intrusive */
+            .flower-decoration {
+                width: 30px;
+                height: 30px;
+                opacity: 0.4;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative elements positioned without overlaps -->
+    <!-- Top left -->
+    <div class="flower-decoration flower1">
+        <img src="https://cdn-icons-png.flaticon.com/512/2909/2909683.png" alt="flower">
+    </div>
+    <div class="flower-decoration flower2">
+        <img src="https://cdn-icons-png.flaticon.com/512/2909/2909751.png" alt="flower">
+    </div>
+    <div class="flower-decoration flower3">
+        <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" alt="heart">
+    </div>
+    
+    <!-- Top right -->
+    <div class="flower-decoration flower4">
+        <img src="https://cdn-icons-png.flaticon.com/512/2909/2909742.png" alt="flower">
+    </div>
+    <div class="flower-decoration flower5">
+        <img src="https://cdn-icons-png.flaticon.com/512/2909/2909731.png" alt="flower">
+    </div>
+    <div class="flower-decoration flower6">
+        <img src="https://cdn-icons-png.flaticon.com/512/2387/2387635.png" alt="star">
+    </div>
+    
+    <!-- Bottom left -->
+    <div class="flower-decoration flower7">
+        <img src="https://cdn-icons-png.flaticon.com/512/2909/2909708.png" alt="flower">
+    </div>
+    <div class="flower-decoration flower8">
+        <img src="https://cdn-icons-png.flaticon.com/512/2909/2909698.png" alt="flower">
+    </div>
+    <div class="flower-decoration flower9">
+        <img src="https://cdn-icons-png.flaticon.com/512/833/833300.png" alt="heart">
+    </div>
+    
+    <!-- Bottom right -->
+    <div class="flower-decoration flower10">
+        <img src="https://cdn-icons-png.flaticon.com/512/2909/2909712.png" alt="flower">
+    </div>
+    <div class="flower-decoration flower11">
+        <img src="https://cdn-icons-png.flaticon.com/512/2909/2909723.png" alt="flower">
+    </div>
+    <div class="flower-decoration flower12">
+        <img src="https://cdn-icons-png.flaticon.com/512/2909/2909688.png" alt="flower">
+    </div>
+    
+    <!-- Middle sides -->
+    <div class="flower-decoration flower13">
+        <img src="https://cdn-icons-png.flaticon.com/512/2909/2909695.png" alt="flower">
+    </div>
+    <div class="flower-decoration flower14">
+        <img src="https://cdn-icons-png.flaticon.com/512/2909/2909719.png" alt="flower">
+    </div>
+
+    <div class="container">
+        <div class="glow"></div>
+        <div class="form-wrapper">
+            <!-- Header -->
+            <div class="header">
+                <div class="title-row">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2909/2909683.png" alt="flower" class="title-icon">
+                    <h1>Анкета кандидата</h1>
+                    <img src="https://cdn-icons-png.flaticon.com/512/2909/2909683.png" alt="flower" class="title-icon">
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form id="leadForm" class="form-content">
+                <div class="form-group">
+                    <label>
+                        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="star">
+                        Ім'я
+                    </label>
+                    <input type="text" name="name" id="name" placeholder="Введіть ваше ім'я" required>
+                    <div class="error-message" id="nameError">Будь ласка, введіть ім'я</div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <img src="https://cdn-icons-png.flaticon.com/512/747/747310.png" alt="calendar">
+                        Вік
+                    </label>
+                    <input type="number" name="age" id="age" placeholder="Ваш вік" min="17" max="100" required>
+                    <div class="error-message" id="ageError">Вік повинен бути мінімум 17 років</div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <img src="https://cdn-icons-png.flaticon.com/512/455/455705.png" alt="phone">
+                        Номер телефону
+                    </label>
+                    <input type="tel" name="phone" id="phone" placeholder="+38 (0XX) XXX-XX-XX" pattern="[0-9+\-\s()]+" title="Тільки цифри та символи +, -, (), пробіл" required>
+                    <div class="error-message" id="phoneError">Тільки цифри та символи +, -, (), пробіл</div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="telegram">
+                        Телеграм
+                    </label>
+                    <input type="text" name="telegram" id="telegram" placeholder="@username" pattern="[@a-zA-Z0-9_]+" title="Тільки англійські літери, цифри та символи @ _" required>
+                    <div class="error-message" id="telegramError">Тільки англійські літери, цифри та символи @ _</div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Відправити
+                </button>
+            </form>
+
+            <!-- Success Message -->
+            <div id="successMessage" class="success-message">
+                <img src="https://cdn-icons-png.flaticon.com/512/5610/5610944.png" alt="success" class="success-icon">
+                
+                <div class="success-flowers">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2909/2909683.png" alt="flower">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2909/2909742.png" alt="flower">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2909/2909751.png" alt="flower">
+                </div>
+                
+                <div class="success-box">
+                    <p>Найближчим часом з вами зв'яжеться наш HR і запросить вас на співбесіду</p>
+                </div>
+                
+                <div class="success-footer">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2909/2909708.png" alt="flower">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2909/2909698.png" alt="flower">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2909/2909731.png" alt="flower">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // URL вашого Google Apps Script
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzb_5yQMyokxHEynbiATDwItOn3x4dzD_ZJEKlYDSSKcWnh_EmVALq6FWAqVcMN4b9hRw/exec';
+
+        // Розумне обмеження довжини телефону в залежності від коду країни
+        document.getElementById('phone').addEventListener('input', function(e) {
+            // Видаляємо букви
+            let value = this.value.replace(/[^0-9+\-\s()]/g, '');
+            
+            // Рахуємо тільки цифри для обмеження
+            let digits = value.replace(/[^0-9]/g, '');
+            
+            // Визначаємо максимальну довжину в залежності від коду країни
+            let maxDigits = 15; // За замовчуванням
+            
+            if (value.startsWith('+1')) {
+                maxDigits = 11; // США, Канада: +1 XXX XXX XXXX
+            } else if (value.startsWith('+7')) {
+                maxDigits = 11; // Росія, Казахстан: +7 XXX XXX XX XX
+            } else if (value.startsWith('+380') || value.startsWith('+38 ')) {
+                maxDigits = 12; // Україна: +380 XX XXX XX XX
+            } else if (value.startsWith('0') && !value.startsWith('+')) {
+                maxDigits = 10; // Українські номери без коду: 0XX XXX XX XX
+            } else if (value.startsWith('+')) {
+                maxDigits = 15; // Інші країни - дозволяємо більше
+            } else {
+                maxDigits = 12; // За замовчуванням
+            }
+            
+            // Якщо цифр більше ніж дозволено - обрізаємо
+            if (digits.length > maxDigits) {
+                // Знаходимо позицію останньої дозволеної цифри
+                let digitCount = 0;
+                let cutPosition = 0;
+                
+                for (let i = 0; i < value.length; i++) {
+                    if (/[0-9]/.test(value[i])) {
+                        digitCount++;
+                        if (digitCount === maxDigits) {
+                            cutPosition = i + 1;
+                            break;
+                        }
+                    }
+                }
+                
+                value = value.slice(0, cutPosition);
+            }
+            
+            this.value = value;
+        });
+
+        // Блокуємо кирилицю та заборонені символи в Телеграмі в реальному часі
+        document.getElementById('telegram').addEventListener('input', function(e) {
+            // Дозволяємо тільки англійські літери, цифри, @ та _
+            this.value = this.value.replace(/[^@a-zA-Z0-9_]/g, '');
+        });
+
+        // Блокуємо введення букв у поле віку
+        document.getElementById('age').addEventListener('input', function(e) {
+            // Дозволяємо тільки цифри
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Отримуємо значення полів
+            const name = document.getElementById('name').value.trim();
+            const age = document.getElementById('age').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const telegram = document.getElementById('telegram').value.trim();
+            
+            // Валідація віку
+            if (parseInt(age) < 17) {
+                alert('Вік повинен бути мінімум 17 років');
+                return;
+            }
+            
+            // Валідація телефону
+            const phoneDigits = phone.replace(/[^0-9]/g, '');
+            if (phoneDigits.length < 10) {
+                alert('Будь ласка, введіть повний номер телефону\nМінімум 10 цифр');
+                return;
+            }
+            
+            // Валідація Телеграму (тільки англійські літери, цифри і символи)
+            const telegramRegex = /^[@a-zA-Z0-9_]+$/;
+            if (!telegramRegex.test(telegram)) {
+                alert('Телеграм може містити тільки англійські літери, цифри та символи @ _');
+                return;
+            }
+            
+            // Проста валідація
+            if (!name || !age || !phone || !telegram) {
+                alert('Будь ласка, заповніть усі поля');
+                return;
+            }
+            
+            // Блокуємо кнопку
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Відправка...';
+            
+            try {
+                // Відправляємо дані в Google Sheets
+                const formData = new FormData();
+                formData.append('name', name);
+                formData.append('age', age);
+                formData.append('phone', phone);
+                formData.append('telegram', telegram);
+                formData.append('timestamp', new Date().toLocaleString('uk-UA'));
+                
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    // Ховаємо форму
+                    document.querySelector('.form-content').classList.add('hidden');
+                    
+                    // Показуємо повідомлення про успіх
+                    document.getElementById('successMessage').classList.add('active');
+                } else {
+                    throw new Error('Помилка відправки');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Виникла помилка при відправці. Спробуйте ще раз.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Відправити';
+            }
+        });
+    </script>
+</body>
+</html>
